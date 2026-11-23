@@ -628,6 +628,9 @@
  .subject-edit-actions { display: flex; justify-content: flex-end; }
  .subject-edit-actions .btn { height: 44px; min-width: 150px; padding: 0 18px; }
  #remove-student-message { overflow-wrap: anywhere; }
+ .import-summary { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 14px; }
+ #import-preview { overflow-wrap: anywhere; }
+ .remark-input.has-note::placeholder { color: #b52e2a; opacity: 1; }
 
   .frame { position: absolute; inset: 14%; pointer-events: none; z-index: 2; }
   .frame i { position: absolute; width: 30px; height: 30px; border: 4px solid #fff; }
@@ -658,7 +661,7 @@
   .scan-result.state-late { background: #fff4de; border-color: #f2c76b; color: #9a6200; }
   .scan-result.state-absent, .scan-result.state-bad, .scan-result.state-closed { background: #fde8e7; border-color: #f0a9a6; color: #b52e2a; }
   .scan-result.state-unknown { background: #efedff; border-color: #c5c2f4; color: #514bb1; }
-  .scan-result.state-repeat { background: #e8f1ff; border-color: #a9c5f6; color: #2555a4; }
+  .scan-result.state-repeat, .scan-result.state-out { background: #e8f1ff; border-color: #a9c5f6; color: #2555a4; }
   .scan-result.state-warn { background: #fff8e9; border-color: #f2d89c; color: #805500; }
   .scan-log-badge {
     align-self: center; padding: 4px 8px; border: 1px solid transparent;
@@ -668,7 +671,7 @@
   .scan-log-badge.state-late { background: #fff4de; color: #9a6200; border-color: #f2c76b; }
   .scan-log-badge.state-absent, .scan-log-badge.state-bad { background: #fde8e7; color: #b52e2a; border-color: #f0a9a6; }
   .scan-log-badge.state-unknown { background: #efedff; color: #514bb1; border-color: #c5c2f4; }
-  .scan-log-badge.state-repeat { background: #e8f1ff; color: #2555a4; border-color: #a9c5f6; }
+  .scan-log-badge.state-repeat, .scan-log-badge.state-out { background: #e8f1ff; color: #2555a4; border-color: #a9c5f6; }
   .scan-log-badge.state-ok, .scan-log-badge.state-idle { background: #f3f6fb; color: var(--navy); border-color: #dfe6f2; }
   .scan-log-badge.state-warn { background: #fff8e9; color: #805500; border-color: #f2d89c; }
 
@@ -720,7 +723,7 @@
     .top { grid-template-columns: minmax(0, 1fr); }
     .subjects { overflow: visible; }
     .table-wrap { flex: none; max-height: 70vh; max-height: 70dvh; -webkit-overflow-scrolling: touch; }
-    table { min-width: 640px; }
+    table { min-width: 720px; }
     .logs-results .table-wrap { max-height: 60dvh; }
     #scan-list { flex: none; max-height: 320px; }
     .att, #view-scanner .att { padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
@@ -824,6 +827,84 @@
     .scan-card .btn { height: 46px; }
   }
 
+  .stamp-time { display: block; font-weight: 600; white-space: nowrap; }
+  .stamp-date { display: block; margin-top: 1px; color: var(--muted); font-size: 11px; white-space: nowrap; }
+  tbody td:nth-child(3) { min-width: 120px; }
+  @media print { .stamp-date { color: #444; } }
+
+  @media (max-width: 1100px) {
+    .toolbar-group { display: contents; }
+  }
+
+  @media (min-width: 1101px) {
+    .att { grid-template-columns: 76px minmax(0, 1fr); }
+    .att-main { grid-template-columns: minmax(230px, 18vw) minmax(0, 1fr); }
+    .att-main > *, .scan-main > *, .logs-main > * { min-width: 0; }
+    .top { grid-template-columns: auto minmax(0, 1fr) auto auto; }
+    .top h2 { white-space: nowrap; }
+
+    .toolbar { flex-wrap: wrap; justify-content: space-between; gap: 12px 16px; }
+    .toolbar-group { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .toolbar-left { flex: 1 1 auto; }
+    .toolbar-right { flex: 0 0 auto; margin-left: auto; }
+    .search { flex: 1 1 220px; min-width: 150px; max-width: 340px; }
+  }
+
+  @media (min-width: 1101px) and (max-width: 1680px) {
+    .att { padding-right: 24px; gap: 18px; }
+    .att-main { grid-template-columns: minmax(230px, 17vw) minmax(0, 1fr); gap: 18px; }
+    .badge-live { padding: 6px 12px; right: 44px; font-size: 11px; }
+    .top, .scan-top { padding: 16px 22px 18px; gap: 14px; }
+    .top h2, .scan-top h2, .logs-top h2 { font-size: 30px; }
+    .start-wrap .btn { min-width: 200px; }
+    .session { min-width: 170px; padding: 12px 18px; }
+    .session-actions { gap: 8px; }
+    .session-actions .btn { padding: 0 14px; }
+    .subjects { padding: 20px 18px; }
+    .students { padding: 16px 18px 14px; }
+    .toolbar .btn { height: 46px; padding: 0 15px; font-size: 14px; }
+    .toolbar-group { gap: 10px; }
+    .search { height: 46px; padding: 0 14px; }
+    .toolbar { margin-bottom: 14px; }
+    thead th { padding: 14px 10px; }
+    tbody td { padding: 0 10px; }
+    tbody td:first-child { width: 44px; }
+    tbody td:last-child { width: 130px; }
+    .remark-input { min-width: 100px; }
+    .stat { min-width: 100px; padding: 0 14px; }
+  }
+
+  @media (min-width: 1101px) and (max-width: 1320px) {
+    .toolbar .btn { padding: 0 12px; font-size: 13px; }
+    .toolbar-group { gap: 8px; }
+    .session-actions .btn { padding: 0 11px; font-size: 14px; }
+    .start-wrap .btn { min-width: 170px; }
+  }
+
+  @media (min-width: 1101px) and (max-height: 700px) {
+    .att { padding-top: 16px; padding-bottom: 14px; }
+    .att-main, .scan-main, .logs-main { gap: 14px; }
+    .top, .scan-top, .logs-top { padding: 12px 22px 14px; gap: 14px; }
+    .top h2, .scan-top h2, .logs-top h2 { font-size: 26px; }
+    .top .date, .scan-top .date, .logs-top p { margin-top: 3px; font-size: 13px; }
+    .session { padding: 8px 16px; }
+    .session .time { margin-top: 2px; font-size: 22px; }
+    .btn { height: 44px; }
+    .start-wrap { gap: 4px; }
+    .subjects { padding: 16px 16px; gap: 10px; }
+    .students { padding: 12px 16px 12px; }
+    .toolbar { margin-bottom: 10px; gap: 10px 12px; }
+    .toolbar .btn, .search { height: 42px; }
+    thead th { padding: 11px 10px; }
+    tbody td { height: 46px; }
+    .foot { margin-top: 10px; }
+    .stat { height: 44px; }
+    .stat b { font-size: 21px; }
+    .logs-filters { padding: 12px 18px; }
+    .logs-results { padding: 14px 18px 12px; }
+    .scan-card .btn { height: 42px; }
+  }
+
 </style>
 </head>
 <body>
@@ -873,7 +954,7 @@
             <ol class="tab-steps">
               <li>Choose how to scan: <b>Camera</b> or <b>USB scanner</b>.</li>
               <li>For the camera, pick one and press <b>Start Camera</b>. For a USB scanner, click the input field and scan.</li>
-              <li>Hold the student&rsquo;s QR code to the camera. The result box shows who was recorded, and <b>Recent Scans</b> keeps count of present, late and absent.</li>
+              <li>Hold the student&rsquo;s QR code to the camera. The result box shows who was recorded, and <b>Recent Scans</b> keeps count of present, late and absent. Scan the same code again when a student leaves to record their time out.</li>
               <li>Press <b>Stop</b> when you&rsquo;re done.</li>
             </ol>
             <button class="tab-go" type="button" data-go="scanner">Open Scanner <span aria-hidden="true">&rarr;</span></button>
@@ -888,8 +969,8 @@
             <p class="tab-what">Your class workspace: subjects, schedules, students and the attendance table.</p>
             <ol class="tab-steps">
               <li>Press <b>Add Subject</b> and choose its class days and times.</li>
-              <li>Press <b>Add Student</b> and enter a student number. Edit or remove students any time.</li>
-              <li>Press <b>Start Class</b> when the session begins. Students scanned after the 15-minute grace period are marked late, and anyone unscanned becomes absent when you <b>End Class</b> or the class ends.</li>
+              <li>Press <b>Add Student</b> and enter a student number, or press <b>Import CSV</b> to load a whole roster from a .csv file. Edit or remove students any time.</li>
+              <li>Press <b>Start Class</b> when the session begins. Students scanned after the 15-minute grace period are marked late, and anyone unscanned becomes absent when you <b>End Class</b> or the class ends. Scanning a student a second time records their <b>time out</b>; leaving within 30 minutes marks them absent.</li>
               <li>Change a status by hand when needed&mdash;excused entries need a short reason. Use <b>Export to Excel</b> or <b>Print</b> for a copy.</li>
             </ol>
             <button class="tab-go" type="button" data-go="attendance">Open Attendance <span aria-hidden="true">&rarr;</span></button>
@@ -905,7 +986,7 @@
             <ol class="tab-steps">
               <li>Pick a <b>Date</b> to see that day&rsquo;s records.</li>
               <li>Pick a <b>Subject</b>, or leave it on <b>All subjects</b>.</li>
-              <li>Read each student&rsquo;s status, time in and remarks in the table below.</li>
+              <li>Read each student&rsquo;s status, time in, time out and remarks in the table below.</li>
             </ol>
             <button class="tab-go" type="button" data-go="logs">Open Logs <span aria-hidden="true">&rarr;</span></button>
           </article>
@@ -1027,20 +1108,25 @@
         <button class="btn add wide" type="button" id="subject-add">+&nbsp; Add Subject</button>
         <div id="subject-list"></div>
         <div class="schedule-link" id="subject-schedule">No subject schedule yet.</div>
-        <div class="hint">Weekly schedule. Late after a 15-minute grace period; unscanned students become absent at class end.</div>
+        <div class="hint">Weekly schedule. Late after a 15-minute grace period; unscanned students become absent at class end; leaving within 30 minutes counts as absent.</div>
       </aside>
 
       <main class="glass students">
         <div class="toolbar">
-          <label class="search">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-            <input type="search" aria-label="Search student">
-          </label>
-          <button class="btn add" type="button" id="student-add">+&nbsp; Add Student</button>
-          <span class="spacer"></span>
-          <button class="btn print" type="button" id="attendance-logs">Logs</button>
-          <button class="btn excel" type="button" id="attendance-export">&darr;&nbsp; Export to Excel</button>
-          <button class="btn print" type="button" id="attendance-print">Print</button>
+          <div class="toolbar-group toolbar-left">
+            <label class="search">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+              <input type="search" aria-label="Search student">
+            </label>
+            <button class="btn add" type="button" id="student-add">+&nbsp; Add Student</button>
+            <button class="btn print" type="button" id="student-import">+&nbsp; Import CSV</button>
+            <input type="file" id="student-import-file" accept=".csv,text/csv" hidden>
+          </div>
+          <div class="toolbar-group toolbar-right">
+            <button class="btn excel" type="button" id="attendance-export">&darr;&nbsp; Export to Excel</button>
+            <button class="btn print" type="button" id="attendance-print">Print</button>
+            <button class="btn danger" type="button" id="attendance-reset">Reset</button>
+          </div>
         </div>
 
         <div class="print-heading" id="print-heading"></div>
@@ -1049,7 +1135,7 @@
             <thead>
               <tr>
                 <th>#</th><th>STUDENT ID</th><th>NAME</th><th>STATUS</th>
-                <th>TIME IN</th><th>REMARKS</th><th>ACTIONS</th>
+                <th>TIME IN</th><th>TIME OUT</th><th>REMARKS</th><th>ACTIONS</th>
               </tr>
             </thead>
             <tbody id="rows"></tbody>
@@ -1096,7 +1182,7 @@
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>SUBJECT</th><th>STUDENT ID</th><th>NAME</th><th>STATUS</th><th>TIME IN</th><th>REMARKS</th></tr>
+              <tr><th>SUBJECT</th><th>STUDENT ID</th><th>NAME</th><th>STATUS</th><th>TIME IN</th><th>TIME OUT</th><th>REMARKS</th></tr>
             </thead>
             <tbody id="logs-rows"></tbody>
           </table>
@@ -1225,6 +1311,32 @@
     <div class="dialog-actions">
       <button class="btn print" type="button" id="remove-subject-no">No</button>
       <button class="btn danger" type="submit" id="remove-subject-yes">Yes, remove</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="student-dialog" id="reset-list-dialog" aria-labelledby="reset-list-title">
+  <form id="reset-list-form">
+    <h2 id="reset-list-title">Clear student list?</h2>
+    <p class="hint" id="reset-list-message"></p>
+    <div class="dialog-actions">
+      <button class="btn print" type="button" id="reset-list-cancel">Cancel</button>
+      <button class="btn danger" type="submit">Yes, clear list</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="student-dialog" id="import-dialog" aria-labelledby="import-dialog-title">
+  <form id="import-form">
+    <h2 id="import-dialog-title">Import Roster</h2>
+    <p class="hint" id="import-file-name"></p>
+    <ul class="import-summary" id="import-summary"></ul>
+    <p class="hint" id="import-preview"></p>
+    <p class="hint">CSV columns: <b>Student ID</b> (or Student Number) and <b>Name</b>. A header row is optional. Students already on the roster are kept as they are.</p>
+    <div class="dialog-error" id="import-error" role="alert"></div>
+    <div class="dialog-actions">
+      <button class="btn print" type="button" id="import-cancel">Cancel</button>
+      <button class="btn add" type="submit" id="import-submit">Import</button>
     </div>
   </form>
 </dialog>
@@ -1438,6 +1550,8 @@
   scannerVideo.setAttribute('aria-label', 'Live QR scanner camera');
   scannerViewport.appendChild(scannerVideo);
 
+  const MIN_STAY_MINUTES = 30;
+  const TIME_OUT_GUARD_MS = 60 * 1000;
   const rosterStorageKey = 'chronolog.students.v1';
   const subjectStorageKey = 'chronolog.subjects.v1';
   let students = [];
@@ -1446,6 +1560,7 @@
   let activeSubjectId = '';
   let editingStudentId = '';
   let pendingStudentRemoval = '';
+  let pendingImport = null;
   let pendingSubjectRemovalId = '';
   let scannerDetector = null;
   let scannerStream = null;
@@ -1470,6 +1585,7 @@
       absent: { title: 'Absent', icon: '−' },
       unknown: { title: 'Unknown student', icon: '?' },
       repeat: { title: 'Already scanned', icon: '↻' },
+      out: { title: 'Time out', icon: '⇥' },
       closed: { title: 'Class ended', icon: '■' },
       warn: { title: 'Check scanner', icon: '!' },
       bad: { title: 'Scanner issue', icon: '×' }
@@ -1511,6 +1627,10 @@
                   date: record.date,
                   status: record.status,
                   timeIn: typeof record.timeIn === 'string' ? record.timeIn : '',
+                  timeOut: typeof record.timeOut === 'string' ? record.timeOut : '',
+                  inAt: typeof record.inAt === 'string' ? record.inAt : '',
+                  manual: record.manual === true,
+                  note: typeof record.note === 'string' ? record.note : '',
                   remarks: record.status === 'excused' && typeof record.remarks === 'string'
                     ? record.remarks : ''
                 };
@@ -2057,13 +2177,14 @@
     const excused = records.filter(record => record && record.status === 'excused').length;
     document.getElementById('stat-excused').textContent = excused;
     document.getElementById('stat-total').textContent = students.length;
+    document.getElementById('attendance-reset').disabled = !students.length;
 
     rows.replaceChildren();
     if (!students.length) {
       const tr = document.createElement('tr');
       const td = document.createElement('td');
-      td.colSpan = 7;
-      td.textContent = 'No students yet. Add a student number to begin.';
+      td.colSpan = 8;
+      td.textContent = 'No students yet. Add a student number or import a CSV to begin.';
       td.className = 'empty-row';
       tr.appendChild(td);
       rows.appendChild(tr);
@@ -2101,7 +2222,12 @@
         const nextStatus = statusSelect.value;
         const remarks = record ? record.remarks : '';
         if (nextStatus === 'excused' && !remarks.trim()) {
-          pendingExcusal = { student, statusSelect, previousStatus: status, timeIn: record ? record.timeIn : '' };
+          pendingExcusal = {
+            student, statusSelect, previousStatus: status,
+            timeIn: record ? record.timeIn : '',
+            timeOut: record ? record.timeOut || '' : '',
+            inAt: record ? record.inAt || '' : ''
+          };
           attendanceRemarksInput.value = '';
           remarksFormError.textContent = '';
           remarksDialog.showModal();
@@ -2115,7 +2241,8 @@
           if (student.attendance) delete student.attendance[key];
         } else {
           student.attendance = student.attendance || {};
-          const timeIn = nextStatus === 'absent'
+          const keepTimes = nextStatus !== 'absent';
+          const timeIn = !keepTimes
             ? ''
             : record && record.timeIn
               ? record.timeIn
@@ -2126,6 +2253,10 @@
             date: today,
             status: nextStatus,
             timeIn: timeIn,
+            timeOut: keepTimes && record ? record.timeOut || '' : '',
+            inAt: keepTimes && record ? record.inAt || '' : '',
+            manual: true,
+            note: '',
             remarks: nextStatus === 'excused' ? remarks : ''
           };
         }
@@ -2140,8 +2271,12 @@
       tr.appendChild(statusCell);
 
       const timeCell = document.createElement('td');
-      timeCell.textContent = formatTimeIn(record) || '—';
+      appendStamp(timeCell, record, record && record.timeIn);
       tr.appendChild(timeCell);
+
+      const timeOutCell = document.createElement('td');
+      appendStamp(timeOutCell, record, record && record.timeOut);
+      tr.appendChild(timeOutCell);
 
       const remarksCell = document.createElement('td');
       const remarksInput = document.createElement('input');
@@ -2149,8 +2284,11 @@
       remarksInput.maxLength = 240;
       remarksInput.className = 'remark-input';
       remarksInput.setAttribute('aria-label', 'Remarks for ' + (student.name || student.id));
+      const autoNote = record && record.note && status === 'absent' ? record.note : '';
       remarksInput.placeholder = record && status === 'excused'
-        ? 'Add an excuse reason' : 'Only for excused status';
+        ? 'Add an excuse reason' : (autoNote || 'Excused only');
+      remarksInput.title = autoNote ? autoNote + ' (minimum stay is ' + MIN_STAY_MINUTES + ' min)' : '';
+      remarksInput.classList.toggle('has-note', Boolean(autoNote));
       remarksInput.value = record ? record.remarks : '';
       remarksInput.disabled = !record || status !== 'excused';
       remarksInput.addEventListener('change', () => {
@@ -2194,6 +2332,142 @@
     });
   }
 
+  function parseCsv(text) {
+    const source = String(text || '').replace(/^\uFEFF/, '');
+    const head = source.split(/\r?\n/, 1)[0] || '';
+    const best = [',', ';', '\t']
+      .map(char => ({ char, count: head.split(char).length - 1 }))
+      .sort((a, b) => b.count - a.count)[0];
+    const sep = best.count > 0 ? best.char : ',';
+    const out = [];
+    let row = [];
+    let cell = '';
+    let quoted = false;
+    for (let i = 0; i < source.length; i++) {
+      const ch = source[i];
+      if (quoted) {
+        if (ch === '"') {
+          if (source[i + 1] === '"') { cell += '"'; i++; } else quoted = false;
+        } else cell += ch;
+      } else if (ch === '"' && cell === '') {
+        quoted = true;
+      } else if (ch === sep) {
+        row.push(cell); cell = '';
+      } else if (ch === '\n' || ch === '\r') {
+        if (ch === '\r' && source[i + 1] === '\n') i++;
+        row.push(cell); cell = '';
+        out.push(row); row = [];
+      } else cell += ch;
+    }
+    row.push(cell);
+    out.push(row);
+    return out
+      .map(r => r.map(c => c.trim().replace(/^'(?=[=+\-@])/, '')))
+      .filter(r => r.some(c => c !== ''));
+  }
+
+  function planRosterImport(rows) {
+    if (!rows.length) return { error: 'That file is empty.' };
+    const norm = value => String(value).toLowerCase().replace(/[^a-z0-9]/g, '');
+    const idHeaders = ['studentid', 'studentnumber', 'studentno', 'studentidnumber', 'idnumber', 'idno', 'id', 'number'];
+    const nameHeaders = ['name', 'studentname', 'fullname', 'learnername'];
+    const firstHeaders = ['firstname', 'givenname', 'first'];
+    const middleHeaders = ['middlename', 'middleinitial', 'mi'];
+    const lastHeaders = ['lastname', 'surname', 'familyname', 'last'];
+    const header = rows[0].map(norm);
+    const idColumn = header.findIndex(h => idHeaders.includes(h));
+    let start = 0;
+    let idIndex = 0;
+    let nameIndexes = [1];
+    if (idColumn >= 0) {
+      start = 1;
+      idIndex = idColumn;
+      const nameColumn = header.findIndex(h => nameHeaders.includes(h));
+      nameIndexes = nameColumn >= 0 ? [nameColumn] : [
+        header.findIndex(h => firstHeaders.includes(h)),
+        header.findIndex(h => middleHeaders.includes(h)),
+        header.findIndex(h => lastHeaders.includes(h))
+      ].filter(index => index >= 0);
+    } else if (header.some(h => nameHeaders.includes(h) || lastHeaders.includes(h))) {
+      return { error: 'Could not find a Student ID column. Add a header such as "Student ID".' };
+    }
+
+    const existingById = new Map(students.map(student => [student.id, student]));
+    const seen = new Set();
+    const plan = { toAdd: [], nameUpdates: [], alreadyOnRoster: 0, duplicateRows: 0, blankRows: 0 };
+    rows.slice(start).forEach(r => {
+      const id = String(r[idIndex] || '').trim().slice(0, 80);
+      if (!id) { plan.blankRows++; return; }
+      if (seen.has(id)) { plan.duplicateRows++; return; }
+      seen.add(id);
+      const name = nameIndexes.map(index => String(r[index] || '').trim()).filter(Boolean)
+        .join(' ').slice(0, 120);
+      const existing = existingById.get(id);
+      if (existing) {
+        plan.alreadyOnRoster++;
+        if (name && !existing.name) plan.nameUpdates.push({ student: existing, name });
+        return;
+      }
+      plan.toAdd.push({ id, name });
+    });
+    return plan;
+  }
+
+  function openImportDialog(fileName, plan) {
+    const summary = document.getElementById('import-summary');
+    const preview = document.getElementById('import-preview');
+    const submit = document.getElementById('import-submit');
+    const error = document.getElementById('import-error');
+    document.getElementById('import-file-name').textContent = 'File: ' + fileName;
+    summary.replaceChildren();
+    preview.textContent = '';
+    error.textContent = '';
+    const plural = (n, word) => n + ' ' + word + (n === 1 ? '' : 's');
+    if (plan.error) {
+      error.textContent = plan.error;
+      submit.disabled = true;
+      submit.textContent = 'Import';
+    } else {
+      const lines = [plural(plan.toAdd.length, 'new student') + ' will be added'];
+      if (plan.alreadyOnRoster) lines.push(plural(plan.alreadyOnRoster, 'student') + ' already on the roster (kept)');
+      if (plan.nameUpdates.length) lines.push(plural(plan.nameUpdates.length, 'missing name') + ' will be filled in');
+      if (plan.duplicateRows) lines.push(plural(plan.duplicateRows, 'repeated ID row') + ' ignored');
+      if (plan.blankRows) lines.push(plural(plan.blankRows, 'row') + ' without an ID ignored');
+      lines.forEach(text => {
+        const item = document.createElement('li');
+        item.textContent = text;
+        summary.appendChild(item);
+      });
+      if (plan.toAdd.length) {
+        preview.textContent = 'Preview: ' + plan.toAdd.slice(0, 3)
+          .map(item => item.id + (item.name ? ' — ' + item.name : '')).join('; ') +
+          (plan.toAdd.length > 3 ? '; …' : '');
+      }
+      const nothing = !plan.toAdd.length && !plan.nameUpdates.length;
+      submit.disabled = nothing;
+      submit.textContent = nothing ? 'Nothing to import'
+        : 'Import ' + plural(plan.toAdd.length + plan.nameUpdates.length, 'student');
+      if (nothing) error.textContent = 'Every student in this file is already on the roster.';
+    }
+    pendingImport = plan.error ? null : plan;
+    document.getElementById('import-dialog').showModal();
+  }
+
+  async function handleImportFile(file) {
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      openImportDialog(file.name, { error: 'That file is too large for a student roster (2 MB limit).' });
+      return;
+    }
+    try {
+      const text = await file.text();
+      openImportDialog(file.name, planRosterImport(parseCsv(text)));
+    } catch (error) {
+      console.error('Could not read the roster file.', error);
+      openImportDialog(file.name, { error: 'Could not read that file. Make sure it is a .csv file.' });
+    }
+  }
+
   function csvCell(value) {
     let text = String(value == null ? '' : value);
     if (/^[\t\r ]*[=+\-@]/.test(text)) text = "'" + text;
@@ -2201,19 +2475,43 @@
   }
 
   function formatTimeIn(record) {
-    if (!record || !record.timeIn || record.status === 'absent') return '';
+    return formatStamp(record, record && record.timeIn);
+  }
+
+  function appendStamp(cell, record, time) {
+    if (!record || !time) { cell.textContent = '—'; return; }
+    const full = formatStamp(record, time);
+    const clock = document.createElement('span');
+    clock.className = 'stamp-time';
+    clock.textContent = time;
+    cell.replaceChildren(clock);
+    const day = full.endsWith(time) ? full.slice(0, full.length - time.length).trim() : '';
+    if (day) {
+      const date = document.createElement('span');
+      date.className = 'stamp-date';
+      date.textContent = day;
+      cell.appendChild(date);
+    }
+  }
+
+  function formatTimeOut(record) {
+    return formatStamp(record, record && record.timeOut);
+  }
+
+  function formatStamp(record, time) {
+    if (!record || !time) return '';
     const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(record.date);
-    if (!match) return record.timeIn;
+    if (!match) return time;
     const year = Number(match[1]);
     const month = Number(match[2]);
     const day = Number(match[3]);
     const date = new Date(year, month - 1, day);
     if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-      return record.timeIn;
+      return time;
     }
     return date.toLocaleDateString('en-US', {
       month: '2-digit', day: '2-digit', year: 'numeric'
-    }) + ' ' + record.timeIn;
+    }) + ' ' + time;
   }
 
   function collectAttendanceSessions() {
@@ -2273,7 +2571,7 @@
     if (!selectedSessions.length) {
       const row = document.createElement('tr');
       const cell = document.createElement('td');
-      cell.colSpan = 6;
+      cell.colSpan = 7;
       cell.className = 'empty-row';
       cell.textContent = date
         ? 'No attendance was recorded for this date and subject.'
@@ -2314,10 +2612,13 @@
         statusCell.textContent = statusLabel;
         row.appendChild(statusCell);
         const timeCell = document.createElement('td');
-        timeCell.textContent = formatTimeIn(record) || '—';
+        appendStamp(timeCell, record, record && record.timeIn);
         row.appendChild(timeCell);
+        const timeOutCell = document.createElement('td');
+        appendStamp(timeOutCell, record, record && record.timeOut);
+        row.appendChild(timeOutCell);
         const remarksCell = document.createElement('td');
-        remarksCell.textContent = record ? record.remarks : '';
+        remarksCell.textContent = record ? (record.remarks || record.note || '') : '';
         row.appendChild(remarksCell);
         logsRows.appendChild(row);
       });
@@ -2336,7 +2637,7 @@
   function exportAttendance() {
     const subject = currentSubject();
     const date = localDayKey();
-    const headers = ['Subject', 'Date', 'Student ID', 'Name', 'Status', 'Time In', 'Remarks'];
+    const headers = ['Subject', 'Date', 'Student ID', 'Name', 'Status', 'Time In', 'Time Out', 'Remarks'];
     const rows = students.map(student => {
       const record = getAttendanceRecord(student, activeSubjectId, date);
       const status = record ? record.status : 'pending';
@@ -2349,7 +2650,8 @@
         student.name,
         statusLabel,
         formatTimeIn(record),
-        record ? record.remarks : ''
+        formatTimeOut(record),
+        record ? (record.remarks || record.note || '') : ''
       ].map(csvCell).join(',');
     });
     const csv = '\uFEFF' + [headers.map(csvCell).join(','), ...rows].join('\r\n');
@@ -2400,7 +2702,8 @@
       : state === 'late' ? 'Late'
         : state === 'absent' ? 'Absent'
           : state === 'unknown' ? 'Unknown'
-            : state === 'repeat' ? 'Repeat' : 'Info';
+            : state === 'repeat' ? 'Repeat'
+              : state === 'out' ? 'Time out' : 'Info';
     time.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     item.append(description, badge, time);
     scanList.prepend(item);
@@ -2434,6 +2737,57 @@
     }
   }
 
+  function recordInTime(record) {
+    if (record.inAt) {
+      const stamp = new Date(record.inAt);
+      if (!isNaN(stamp)) return stamp;
+    }
+    const clock = /^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*([ap])?/i.exec(record.timeIn || '');
+    const day = /^(\d{4})-(\d{2})-(\d{2})$/.exec(record.date || '');
+    if (!clock || !day) return null;
+    let hour = Number(clock[1]);
+    const meridiem = clock[4] ? clock[4].toLowerCase() : '';
+    if (meridiem === 'p' && hour < 12) hour += 12;
+    if (meridiem === 'a' && hour === 12) hour = 0;
+    return new Date(Number(day[1]), Number(day[2]) - 1, Number(day[3]), hour, Number(clock[2]), Number(clock[3] || 0));
+  }
+
+  function recordTimeOut(student, record, now) {
+    const name = student.name || student.id;
+    if (record.manual || record.timeOut || !record.timeIn ||
+        (record.status !== 'present' && record.status !== 'late')) return null;
+    const inTime = recordInTime(record);
+    if (!inTime) return null;
+    const elapsed = now - inTime;
+    if (elapsed < TIME_OUT_GUARD_MS) {
+      return {
+        changed: false,
+        log: 'Scanned in moments ago',
+        message: name + ' just scanned in. Wait at least a minute before scanning out.'
+      };
+    }
+    const minutes = Math.floor(elapsed / 60000);
+    record.timeOut = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    if (minutes < MIN_STAY_MINUTES) {
+      record.status = 'absent';
+      record.note = 'Left after ' + minutes + ' min';
+      return {
+        changed: true,
+        state: 'absent',
+        log: 'Time out after ' + minutes + ' min · marked absent',
+        message: name + ' left after ' + minutes + ' minute' + (minutes === 1 ? '' : 's') +
+          ', under the ' + MIN_STAY_MINUTES + '-minute minimum, so they are marked absent. ' +
+          'You can change this in Attendance.'
+      };
+    }
+    return {
+      changed: true,
+      state: 'out',
+      log: 'Time out after ' + minutes + ' min',
+      message: 'Time out recorded for ' + name + ' after ' + minutes + ' minutes.'
+    };
+  }
+
   function handleScannedValue(rawValue) {
     const value = String(rawValue || '').trim();
     if (!value) return;
@@ -2461,9 +2815,24 @@
       return;
     }
 
-    if (getAttendanceRecord(student, activeSubjectId, todayKey)) {
-      logScan(student.id, 'Attendance was not changed', 'repeat');
-      showScanResult((student.name || student.id) + ' is already recorded; attendance was not changed.', 'repeat');
+    const existingRecord = getAttendanceRecord(student, activeSubjectId, todayKey);
+    if (existingRecord) {
+      const outcome = recordTimeOut(student, existingRecord, new Date());
+      if (outcome && outcome.changed) {
+        updateAttendance();
+        logScan(student.id, outcome.log, outcome.state);
+        const savedOut = saveRoster();
+        showScanResult(savedOut
+          ? outcome.message
+          : outcome.message + ' Browser storage could not save it.',
+        outcome.state);
+        return;
+      }
+      logScan(student.id, outcome ? outcome.log : 'Attendance was not changed', 'repeat');
+      showScanResult(outcome
+        ? outcome.message
+        : (student.name || student.id) + ' is already recorded; attendance was not changed.',
+      'repeat');
       return;
     }
 
@@ -2476,6 +2845,10 @@
       date: todayKey,
       status: status,
       timeIn: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+      timeOut: '',
+      inAt: now.toISOString(),
+      manual: false,
+      note: '',
       remarks: ''
     };
     updateAttendance();
@@ -2656,7 +3029,54 @@
   });
 
   document.getElementById('student-add').addEventListener('click', () => openStudentDialog());
-  document.getElementById('attendance-logs').addEventListener('click', event => show('logs', event.currentTarget));
+  const resetListDialog = document.getElementById('reset-list-dialog');
+  document.getElementById('attendance-reset').addEventListener('click', () => {
+    if (!students.length) return;
+    document.getElementById('reset-list-message').textContent = 'Remove all ' + students.length +
+      ' student' + (students.length === 1 ? '' : 's') + ' from the roster? Their saved attendance history ' +
+      'will also be deleted. This cannot be undone.';
+    resetListDialog.showModal();
+  });
+  document.getElementById('reset-list-cancel').addEventListener('click', () => resetListDialog.close());
+  document.getElementById('reset-list-form').addEventListener('submit', event => {
+    event.preventDefault();
+    students = [];
+    const saved = saveRoster();
+    resetListDialog.close();
+    updateAttendance();
+    showScanResult(saved
+      ? 'Student list cleared.'
+      : 'Student list cleared for this page only; browser storage could not save the change.',
+    saved ? 'ok' : 'warn');
+  });
+  const importFileInput = document.getElementById('student-import-file');
+  const importDialog = document.getElementById('import-dialog');
+  document.getElementById('student-import').addEventListener('click', () => importFileInput.click());
+  importFileInput.addEventListener('change', () => {
+    const file = importFileInput.files && importFileInput.files[0];
+    importFileInput.value = '';
+    handleImportFile(file);
+  });
+  document.getElementById('import-cancel').addEventListener('click', () => {
+    pendingImport = null;
+    importDialog.close();
+  });
+  importDialog.addEventListener('cancel', () => { pendingImport = null; });
+  document.getElementById('import-form').addEventListener('submit', event => {
+    event.preventDefault();
+    if (!pendingImport) return;
+    const plan = pendingImport;
+    pendingImport = null;
+    plan.toAdd.forEach(item => students.push({ id: item.id, name: item.name, attendance: {} }));
+    plan.nameUpdates.forEach(update => { update.student.name = update.name; });
+    const saved = saveRoster();
+    importDialog.close();
+    updateAttendance();
+    showScanResult(saved
+      ? 'Imported ' + plan.toAdd.length + ' student' + (plan.toAdd.length === 1 ? '' : 's') + ' from CSV.'
+      : 'Imported for this page only; browser storage could not save the roster.',
+    saved ? 'ok' : 'warn');
+  });
   document.getElementById('logs-back').addEventListener('click', event => show('attendance', event.currentTarget));
   logsDateInput.addEventListener('change', renderAttendanceLogs);
   logsSubjectSelect.addEventListener('change', renderAttendanceLogs);
@@ -2780,6 +3200,10 @@
       date: localDayKey(),
       status: 'excused',
       timeIn: pendingExcusal.timeIn,
+      timeOut: pendingExcusal.timeOut,
+      inAt: pendingExcusal.inAt,
+      manual: true,
+      note: '',
       remarks: remarks
     };
     const saved = saveRoster();
